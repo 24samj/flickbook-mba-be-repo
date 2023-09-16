@@ -1,14 +1,88 @@
-async function getAllTheatres(req, res) {}
+const Theatre = require("../models/theatre.model");
 
-async function getTheatreById(req, res) {}
+async function getAllTheatres(req, res) {
+  const theatres = await Theatre.find();
+  res.status(200).send(theatres);
+}
 
-async function createTheatre(req, res) {}
+async function getTheatreById(req, res) {
+  const id = req.params.id;
 
-async function updateTheatre(req, res) {}
+  try {
+    const theatre = await Theatre.findById(id);
+    res.status(200).send(theatre);
+  } catch (ex) {
+    res.status(404).send({
+      message: `Theatre with ID : ${id} does not exist`,
+    });
+  }
+}
 
-async function deleteTheatre(req, res) {}
+async function createTheatre(req, res) {
+  const theatre = req.body;
+  try {
+    const newTheatre = await Theatre.create(theatre);
+    res.status(201).send(newTheatre);
+  } catch (ex) {
+    res.status(400).send({
+      message: "Theatre body is invalid",
+    });
+  }
+}
 
-async function addMoviesToATheatre(req, res) {}
+async function updateTheatre(req, res) {
+  const id = req.params.id;
+
+  try {
+    Theatre.findById(id);
+  } catch (ex) {
+    res.status(404).send({
+      message: "Theatre does not exist",
+    });
+  }
+
+  const updatedTheatre = await Theatre.findByIdAndUpdate(id, req.body);
+  res.send(updatedTheatre);
+}
+
+async function deleteTheatre(req, res) {
+  const id = req.params.id;
+
+  try {
+    Theatre.findById(id);
+  } catch (ex) {
+    res.status(404).send({
+      message: "Theatre does not exist",
+    });
+  }
+
+  await Theatre.findByIdAndDelete(id);
+}
+
+async function addMoviesToATheatre(req, res) {
+  const moviesToBeAdded = req.body;
+
+  if (!Array.isArray(moviesToBeAdded)) {
+    res.status(400).send({
+      message: "Request body should be an array of movie ids",
+    });
+  }
+
+  const theatreId = req.params.id;
+
+  try {
+    const theatre = await Theatre.findById(theatreId);
+    const existingMovies = theatre.movies;
+    const updatedMovies = [...moviesToBeAdded, ...existingMovies];
+    theatre.movies = updatedMovies;
+    const updatedTheatre = await Theatre.findByIdAndUpdate(theatreId, theatre);
+    res.status(200).send(updatedTheatre);
+  } catch (ex) {
+    res.status(404).send({
+      message: `Theatre with ID: ${theatreId} does not exist`,
+    });
+  }
+}
 
 module.exports = {
   getAllTheatres,
