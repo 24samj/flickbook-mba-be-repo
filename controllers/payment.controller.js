@@ -10,7 +10,7 @@ async function createPayment(req, res) {
 
 async function getAllPayments(req, res) {
   if (req.userType === USERTYPES.CUSTOMER) {
-    const user = await User.find({ userId: req.userId });
+    const user = await User.findOne({ userId: req.userId });
     const userBookingsIds = await Booking.find({ userId: user._id }).select(
       "_id"
     );
@@ -30,7 +30,7 @@ async function getAllPayments(req, res) {
 
 async function getPaymentById(req, res) {
   if (req.userType === USERTYPES.CUSTOMER) {
-    const user = await User.find({ userId: req.userId });
+    const user = await User.findOne({ userId: req.userId });
     try {
       const payment = await Payment.findById(req.params.id);
       const bookingId = payment.bookingId;

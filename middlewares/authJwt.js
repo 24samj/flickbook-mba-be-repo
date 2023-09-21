@@ -50,7 +50,7 @@ const isAdmin = (req, res, next) => {
   }
 
   if (req.userId && req.userType && req.userType === USERTYPES.ADMIN) {
-    next();
+    return next();
   } else if (req.userType !== USERTYPES.ADMIN) {
     res.status(403).send({
       message: "USER is not an admin",

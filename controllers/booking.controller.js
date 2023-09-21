@@ -15,7 +15,7 @@ async function getAllBookings(req, res) {
   }
 
   const userId = req.userId;
-  const user = await User.find({ userId: userId });
+  const user = await User.findOne({ userId: userId });
 
   if (req.userType === USERTYPES.CUSTOMER) {
     const bookings = await Booking.find({ userId: user._id });
@@ -25,6 +25,7 @@ async function getAllBookings(req, res) {
     const theatresOwned = await Theatre.find({ ownerId: user._id }).select(
       "_id"
     );
+
     const bookingsInOwnedTheatres = await Booking.find({
       theatreId: { $in: theatresOwned },
     });
@@ -33,16 +34,16 @@ async function getAllBookings(req, res) {
 }
 
 async function getBookingById(req, res) {
+  const userId = req.userId;
+  const user = await User.findOne({ userId: userId });
+
   try {
     const booking = await Booking.findById(req.params.id);
-    if (req.userType === USERTYPES.ADMIN || req.userType === USERTYPES.CLIENT) {
+    if (req.userType === USERTYPES.ADMIN) {
       res.send(booking);
     } else if (req.userType === USERTYPES.CUSTOMER) {
       // Callee is a customer
       // Return the booking only if it is made by the customer
-
-      const userId = req.userId;
-      const user = await User.find({ userId: userId });
 
       if (booking.userId === user._id) {
         res.send(booking);
@@ -51,6 +52,17 @@ async function getBookingById(req, res) {
           message: `This booking is not created by the current user.`,
         });
       }
+    } else {
+      // user is a owner
+      const theatresOwned = await Theatre.find({ ownerId: user._id }).select(
+        "_id"
+      );
+
+      const bookingsInOwnedTheatres = await Booking.findOne({
+        theatreId: { $in: theatresOwned },
+        _id: req.params.id,
+      });
+      res.status(200).send(bookingsInOwnedTheatres);
     }
   } catch (ex) {
     res.status(404).send({
@@ -60,7 +72,10 @@ async function getBookingById(req, res) {
 }
 
 async function updateBooking(req, res) {
-  if (req.userType === USERTYPES.ADMIN || req.userType === USERTYPES.CLIENT) {
+  const userId = req.userId;
+  const user = await User.findOne({ userId: userId });
+
+  if (req.userType === USERTYPES.ADMIN) {
     const updatedBooking = await Booking.findByIdAndUpdate(
       req.params.id,
       req.body
@@ -70,19 +85,16 @@ async function updateBooking(req, res) {
     // Callee is a customer
     // Update the booking only if it is made by the customer
 
-    const userId = req.userId;
-    const user = await User.find({ userId: userId });
-
     try {
       const booking = await Booking.findById(req.params.id);
-      if (booking.userId === user._id) {
+      if (booking.userId.toString() === user._id.toString()) {
         const updatedBooking = await Booking.findByIdAndUpdate(
           req.params.id,
           req.body
         );
-        res.send(updatedBooking);
+        return res.send(updatedBooking);
       } else {
-        res.status(403).send({
+        return res.status(403).send({
           message: `User can only update a booking created by them`,
         });
       }
@@ -90,6 +102,25 @@ async function updateBooking(req, res) {
       res.status(404).send({
         message: `Booking with ID: ${req.params.id} does not exist`,
       });
+    }
+  } else {
+    const theatresOwned = await Theatre.find({ ownerId: user._id }).select(
+      "_id"
+    );
+
+    const bookingsInOwnedTheatres = await Booking.findOne({
+      theatreId: { $in: theatresOwned },
+      _id: req.params.id,
+    });
+
+    if (bookingsInOwnedTheatres) {
+      const updatedBooking = await Booking.findByIdAndUpdate(
+        req.params.id,
+        req.body
+      );
+      res.send(updatedBooking);
+    } else {
+      res.send({ message: "User is not allowed to update this booking" });
     }
   }
 }

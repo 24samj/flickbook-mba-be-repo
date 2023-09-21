@@ -31,7 +31,6 @@ const bookingSchema = new mongoose.Schema({
   status: {
     type: String,
     default: "CONFIRMED",
-    required: true,
   },
   createdAt: {
     type: Date,

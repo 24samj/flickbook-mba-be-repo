@@ -16,10 +16,5 @@ module.exports = function (app) {
 
   app.put("/mba/api/v1/movies/:id", [verifyToken, isAdmin], updateMovie);
 
-  app.delete(
-    "/mba/api/v1/movies/:id",
-    [verifyToken, isAdmin],
-    [isAdmin],
-    deleteMovie
-  );
+  app.delete("/mba/api/v1/movies/:id", [verifyToken, isAdmin], deleteMovie);
 };

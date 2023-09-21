@@ -2,23 +2,49 @@ const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 
 async function getAllUsers(req, res) {
-  const users = await User.find();
+  const users = await User.find().select("-password");
   res.send(users);
 }
 
-async function updateUser(req, res) {
+async function updateUserStatus(req, res) {
   const { body } = req;
   const { id } = req.params;
 
-  if (body.password) {
-    body.password = bcrypt.hashSync(body.password, 10);
+  const updatedUser = await User.findByIdAndUpdate(id, {
+    userStatus: body.userStatus,
+  });
+  res.status(200).send(updatedUser);
+}
+
+async function updateUserDetails(req, res) {
+  const { body } = req;
+  const { id } = req.params;
+
+  const user = await User.findOne({ userId: req.userId });
+
+  if (user._id.toString() !== id) {
+    res.status(403).send({
+      message: "Cannot update the details of user other than self",
+    });
+    return;
   }
 
-  const updatedUser = await User.findByIdAndUpdate(id, body);
+  const updateObj = {};
+
+  updateObj.userId = body.userId;
+  updateObj.email = body.email;
+  updateObj.name = body.name;
+
+  if (body.password) {
+    updateObj.password = bcrypt.hashSync(body.password, 10);
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(id, updateObj);
   res.status(200).send(updatedUser);
 }
 
 module.exports = {
   getAllUsers,
-  updateUser,
+  updateUserStatus,
+  updateUserDetails,
 };

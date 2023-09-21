@@ -18,6 +18,7 @@ require("./routes/theatre.route")(app);
 require("./routes/payment.route")(app);
 require("./routes/movie.route")(app);
 require("./routes/booking.route")(app);
+require("./routes/user.route")(app);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);

@@ -57,13 +57,14 @@ async function deleteTheatre(req, res) {
   }
 
   await Theatre.findByIdAndDelete(id);
+  res.send();
 }
 
 async function addMoviesToATheatre(req, res) {
   const moviesToBeAdded = req.body;
 
   if (!Array.isArray(moviesToBeAdded)) {
-    res.status(400).send({
+    return res.status(400).send({
       message: "Request body should be an array of movie ids",
     });
   }
@@ -92,3 +93,6 @@ module.exports = {
   deleteTheatre,
   addMoviesToATheatre,
 };
+
+// Array.isArray([1,2,3])   true
+// Array.isArray({})    false
