@@ -1,0 +1,108 @@
+[{
+  "_id": {
+    "$oid": "650c5aa8e4c1be14aa0f232a"
+  },
+  "name": "ghanshyam",
+  "userId": "ghanshyam",
+  "password": "$2b$10$jpuDxLecJ.rb5iAqBXzZbuDI2AwlHOq68B2Xq/uw8nHc0oDn7J7t.",
+  "email": "gk728101@gmail.com",
+  "userStatus": "APPROVED",
+  "userType": "ADMIN",
+  "createdAt": {
+    "$date": "2023-09-21T15:00:56.739Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-21T15:00:56.739Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650c5ae0e4c1be14aa0f232c"
+  },
+  "name": "aditya",
+  "userId": "aditya",
+  "password": "$2b$10$zsyBaAc4T/4JQ24mDMNR2eyy8mMEDsgYH0m0p2LhgxmijZPoHCL9S",
+  "email": "akash.aditya001@gmail.com",
+  "userStatus": "APPROVED",
+  "userType": "CUSTOMER",
+  "createdAt": {
+    "$date": "2023-09-21T15:01:52.686Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-21T15:01:52.686Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650c5b05e4c1be14aa0f232e"
+  },
+  "name": "satya",
+  "userId": "satya",
+  "password": "$2b$10$yTuv7RuGk.8S/Z0CrKd/JeN6HtPFQjBtqOVR0GNW89iWdQDko0XV6",
+  "email": "satyakandelli@gmail.com",
+  "userStatus": "APPROVED",
+  "userType": "CLIENT",
+  "createdAt": {
+    "$date": "2023-09-21T15:02:29.190Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-21T15:02:29.190Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650c5c7db06f1470ec40551d"
+  },
+  "name": "Mrigank",
+  "userId": "mrigank",
+  "password": "$2b$10$SlvH2bEfjRwNsXMmL56a8OLKHz3t0AP2TBRc/fQRXr8hirMobg6D2",
+  "email": "mriganknitw@gmail.com",
+  "userStatus": "APPROVED",
+  "userType": "CLIENT",
+  "createdAt": {
+    "$date": "2023-09-21T15:08:45.437Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-21T15:08:45.437Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650c6d78c9934716f2e92236"
+  },
+  "name": "sasi",
+  "userId": "sasi",
+  "password": "$2b$10$f4.TNlE/LYMIBqrGqDQRi.jwrOaC9rpZzYY6mtWbk7tQ4A6nLGYyS",
+  "email": "sasikumarv567@gmail.com",
+  "userStatus": "APPROVED",
+  "userType": "CLIENT",
+  "createdAt": {
+    "$date": "2023-09-21T16:21:12.358Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-21T16:21:12.358Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650c742e6f1cc0289909d9bf"
+  },
+  "name": "yash",
+  "userId": "yash",
+  "password": "$2b$10$kjDRmKudS7m2Wa4KgLp2BOW5wlwYDXwQpPYdfsCW6du7vMqKY.QOC",
+  "email": "yashtiwari9991@gmail.com",
+  "userStatus": "APPROVED",
+  "userType": "CUSTOMER",
+  "createdAt": {
+    "$date": "2023-09-21T16:49:50.175Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-21T16:49:50.175Z"
+  },
+  "__v": 0
+}]

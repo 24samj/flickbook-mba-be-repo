@@ -1,0 +1,117 @@
+[{
+  "_id": {
+    "$oid": "650c690203a326811aa8800d"
+  },
+  "name": "PVR cinemas",
+  "description": "Best cinema",
+  "city": "Kolkata",
+  "pinCode": 560052,
+  "movies": [
+    {
+      "$oid": "650c712770d403e330ea8f8a"
+    },
+    {
+      "$oid": "650c711170d403e330ea8f88"
+    },
+    {
+      "$oid": "650c66de03a326811aa87ff3"
+    },
+    {
+      "$oid": "650c67ef03a326811aa87ff6"
+    }
+  ],
+  "ownerId": {
+    "$oid": "650c5b05e4c1be14aa0f232e"
+  },
+  "createdAt": {
+    "$date": "2023-09-21T16:02:10.735Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-21T16:02:10.735Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650c690303a326811aa8800f"
+  },
+  "name": "Inox cinemas",
+  "description": "Second Best cinema",
+  "city": "Kochi",
+  "pinCode": 560052,
+  "movies": [
+    {
+      "$oid": "650c66de03a326811aa87ff3"
+    },
+    {
+      "$oid": "650c67ef03a326811aa87ff6"
+    }
+  ],
+  "ownerId": {
+    "$oid": "650c5b05e4c1be14aa0f232e"
+  },
+  "createdAt": {
+    "$date": "2023-09-21T16:02:11.568Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-21T16:02:11.568Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650c690403a326811aa88011"
+  },
+  "name": "FunCinemas",
+  "description": "Top class theatre",
+  "city": "Bangalore",
+  "pinCode": 560052,
+  "movies": [
+    {
+      "$oid": "650c66de03a326811aa87ff3"
+    },
+    {
+      "$oid": "650c67ef03a326811aa87ff6"
+    }
+  ],
+  "ownerId": {
+    "$oid": "650c5b05e4c1be14aa0f232e"
+  },
+  "createdAt": {
+    "$date": "2023-09-21T16:02:12.370Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-21T16:02:12.370Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650c690503a326811aa88015"
+  },
+  "name": "Carnival cinemas",
+  "description": "Best Cinema in Chennai",
+  "city": "Chennai",
+  "pinCode": 560052,
+  "movies": [
+    {
+      "$oid": "650c712770d403e330ea8f8a"
+    },
+    {
+      "$oid": "650c66de03a326811aa87ff3"
+    },
+    {
+      "$oid": "650c67ef03a326811aa87ff6"
+    }
+  ],
+  "ownerId": {
+    "$oid": "650c5b05e4c1be14aa0f232e"
+  },
+  "createdAt": {
+    "$date": "2023-09-21T16:02:13.882Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-21T16:02:13.882Z"
+  },
+  "__v": 0
+}]

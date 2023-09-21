@@ -1,0 +1,58 @@
+[{
+  "_id": {
+    "$oid": "650c73c46f1cc0289909d9bd"
+  },
+  "movieId": {
+    "$oid": "650c712770d403e330ea8f8a"
+  },
+  "theatreId": {
+    "$oid": "650c690203a326811aa8800d"
+  },
+  "userId": {
+    "$oid": "650c5ae0e4c1be14aa0f232c"
+  },
+  "seats": [
+    "A-15",
+    "A-16",
+    "A-17"
+  ],
+  "totalCost": 300,
+  "timing": "10pm",
+  "status": "CONFIRMED",
+  "createdAt": {
+    "$date": "2023-09-21T16:48:04.766Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-21T16:48:04.766Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650c745d6f1cc0289909d9c2"
+  },
+  "movieId": {
+    "$oid": "650c712770d403e330ea8f8a"
+  },
+  "theatreId": {
+    "$oid": "650c690203a326811aa8800d"
+  },
+  "userId": {
+    "$oid": "650c742e6f1cc0289909d9bf"
+  },
+  "seats": [
+    "A-15",
+    "A-16",
+    "A-17"
+  ],
+  "totalCost": 300,
+  "timing": "10pm",
+  "status": "CONFIRMED",
+  "createdAt": {
+    "$date": "2023-09-21T16:50:37.120Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-21T16:50:37.120Z"
+  },
+  "__v": 0
+}]
