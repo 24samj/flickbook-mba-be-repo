@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "14c73ac7-2dd2-4022-8148-bb03b2baad32",
+		"name": "mba_db",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "7975040"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"mrigank\",\n    \"email\": \"mrigank@gmail.com\",\n    \"userId\": \"mrigank\",\n    \"password\": \"mrigank\",\n    \"userType\": \"ADMIN\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/mba/api/v1/auth/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"mrigank\",\n    \"password\": \"mrigank123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/mba/api/v1/auth/signin"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all movies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/mba/api/v1/movies"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all theatres",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/mba/api/v1/movies"
+			},
+			"response": []
+		},
+		{
+			"name": "get movie by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/mba/api/v1/movies/12343"
+			},
+			"response": []
+		},
+		{
+			"name": "get theatre by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/mba/api/v1/movies/12343"
+			},
+			"response": []
+		},
+		{
+			"name": "delete movie",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3000/mba/api/v1/movies/65033a1d80405e0090743db1"
+			},
+			"response": []
+		},
+		{
+			"name": "delete theatre",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3000/mba/api/v1/movies/65033a1d80405e0090743db1"
+			},
+			"response": []
+		},
+		{
+			"name": "update theatre",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJzYXR5YSIsInVzZXJUeXBlIjoiQ0xJRU5UIiwiZW1haWwiOiJzYXR5YWthbmRlbGxpQGdtYWlsLmNvbSIsImlhdCI6MTY5NTMxMzQ2OSwiZXhwIjoxNjk1MzM1MDY5fQ.cVmYL8jijSM4NVowUEpVMCXBfo6c0v7fzXkKhAfwuog",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"PVR cinemas\",\n    \"description\": \"Best cinema\",\n    \"city\": \"Kolkata\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/mba/api/v1/theatres/650c690203a326811aa8800d"
+			},
+			"response": []
+		},
+		{
+			"name": "update movie",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJnaGFuc2h5YW0iLCJ1c2VyVHlwZSI6IkFETUlOIiwiZW1haWwiOiJnazcyODEwMUBnbWFpbC5jb20iLCJpYXQiOjE2OTUzMTE0MTcsImV4cCI6MTY5NTMzMzAxN30.5Hdqyyu9gG4fLnYLPem2ozzzIDhNI8U1_6QfqCnIx_k",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Romantic Comedy Movie\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/mba/api/v1/movies/650c66de03a326811aa87ff3"
+			},
+			"response": []
+		},
+		{
+			"name": "add movies to theatre",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJnaGFuc2h5YW0iLCJ1c2VyVHlwZSI6IkFETUlOIiwiZW1haWwiOiJnazcyODEwMUBnbWFpbC5jb20iLCJpYXQiOjE2OTUzMTE0MTcsImV4cCI6MTY5NTMzMzAxN30.5Hdqyyu9gG4fLnYLPem2ozzzIDhNI8U1_6QfqCnIx_k",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Romantic Comedy Movie\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/mba/api/v1/movies/650c66de03a326811aa87ff3"
+			},
+			"response": []
+		},
+		{
+			"name": "Create movie",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Bachhan Pandey\",\n  \"description\": \"Comedy Masala Movie\",\n  \"casts\": [\n    \"Akshay Kumar\",\n    \"Jacqueline Fernandiz\"\n  ],\n  \"trailerUrl\": \"https://www.youtube.com/watch?v=4d8m59ct2wQ\",\n  \"posterUrl\": \"https://www.punekarnews.in/wp-content/uploads/2022/01/20220118_214337.jpg\",\n  \"language\": \"Hindi\",\n  \"releaseDate\": \"18-03-2022\",\n  \"director\": \"Farhad Samji\",\n  \"releaseStatus\": \"RELEASED\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/mba/api/v1/movies"
+			},
+			"response": []
+		},
+		{
+			"name": "Create theatre",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Bachhan Pandey\",\n  \"description\": \"Comedy Masala Movie\",\n  \"casts\": [\n    \"Akshay Kumar\",\n    \"Jacqueline Fernandiz\"\n  ],\n  \"trailerUrl\": \"https://www.youtube.com/watch?v=4d8m59ct2wQ\",\n  \"posterUrl\": \"https://www.punekarnews.in/wp-content/uploads/2022/01/20220118_214337.jpg\",\n  \"language\": \"Hindi\",\n  \"releaseDate\": \"18-03-2022\",\n  \"director\": \"Farhad Samji\",\n  \"releaseStatus\": \"RELEASED\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/mba/api/v1/movies"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJnaGFuc2h5YW0iLCJ1c2VyVHlwZSI6IkFETUlOIiwiZW1haWwiOiJnazcyODEwMUBnbWFpbC5jb20iLCJpYXQiOjE2OTUzMDg3ODMsImV4cCI6MTY5NTMzMDM4M30.Wzok0ALKub839-yVP_1DNRCB9_FgXy83dvWRFOMEGEQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userStatus\": \"APPROVED\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/mba/api/v1/users/650c5c7db06f1470ec40551d"
+			},
+			"response": []
+		},
+		{
+			"name": "Update user details",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Create Booking",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get bookings",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "update booking",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
