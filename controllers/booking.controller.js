@@ -2,6 +2,7 @@ const { USERTYPES } = require("../constant");
 const Booking = require("../models/booking.model");
 const Theatre = require("../models/theatre.model");
 const User = require("../models/user.model");
+const sendMail = require("../utils/notification");
 
 async function getAllBookings(req, res) {
   // if it is an admin, return all bookings
@@ -91,6 +92,12 @@ async function updateBooking(req, res) {
         const updatedBooking = await Booking.findByIdAndUpdate(
           req.params.id,
           req.body
+        );
+        sendMail(
+          booking._id,
+          "Booking updated",
+          "Your booking has been updated. Check out the details in the app",
+          [user.email]
         );
         return res.send(updatedBooking);
       } else {

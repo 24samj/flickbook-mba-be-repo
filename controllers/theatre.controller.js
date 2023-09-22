@@ -1,4 +1,6 @@
 const Theatre = require("../models/theatre.model");
+const User = require("../models/user.model");
+const sendMail = require("../utils/notification");
 
 async function getAllTheatres(req, res) {
   const theatres = await Theatre.find();
@@ -77,6 +79,13 @@ async function addMoviesToATheatre(req, res) {
     const updatedMovies = [...moviesToBeAdded, ...existingMovies];
     theatre.movies = updatedMovies;
     const updatedTheatre = await Theatre.findByIdAndUpdate(theatreId, theatre);
+    const user = await User.findOne({ _id: theatre.ownerId });
+    sendMail(
+      theatreId,
+      "New movies are added",
+      "New movies have been successfully added to your theatre. Check them in the application now.",
+      [user.email]
+    );
     res.status(200).send(updatedTheatre);
   } catch (ex) {
     res.status(404).send({
@@ -93,6 +102,3 @@ module.exports = {
   deleteTheatre,
   addMoviesToATheatre,
 };
-
-// Array.isArray([1,2,3])   true
-// Array.isArray({})    false

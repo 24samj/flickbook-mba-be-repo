@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const sendMail = require("../utils/notification");
 
 async function getAllUsers(req, res) {
   const users = await User.find().select("-password");
@@ -13,6 +14,12 @@ async function updateUserStatus(req, res) {
   const updatedUser = await User.findByIdAndUpdate(id, {
     userStatus: body.userStatus,
   });
+  sendMail(
+    id,
+    "User status has changed",
+    `Your userStatus has been changed to ${req.body.userStatus}.`,
+    [updatedUser.email]
+  );
   res.status(200).send(updatedUser);
 }
 

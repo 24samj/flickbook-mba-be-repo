@@ -30,7 +30,7 @@ const bookingSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    default: "CONFIRMED",
+    default: "IN_PROGRESS",
   },
   createdAt: {
     type: Date,

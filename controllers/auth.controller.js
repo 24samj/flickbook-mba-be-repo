@@ -54,10 +54,9 @@ async function signin(req, res) {
   const isPasswordValid = bcrypt.compareSync(password, user.password);
 
   if (!isPasswordValid) {
-    res.status(401).send({
+    return res.status(401).send({
       message: "Password is invalid",
     });
-    return;
   }
 
   // JWT token

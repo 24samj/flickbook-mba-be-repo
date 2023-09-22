@@ -1,3 +1,3 @@
-const SECRET_KEY = "mrigank12345";
+const SECRET_KEY = process.env.SECRET_KEY;
 
 module.exports = SECRET_KEY;

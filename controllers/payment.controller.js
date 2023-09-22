@@ -4,8 +4,31 @@ const Payment = require("../models/payment.model");
 const User = require("../models/user.model");
 
 async function createPayment(req, res) {
-  const payment = await Payment.create(req.body);
-  res.status(201).send(payment);
+  // check if booking's userId is same as the user making this payment
+
+  const bookingId = req.body.bookingId;
+  try {
+    const booking = await Booking.findById(bookingId);
+    const userId = booking.userId;
+
+    const user = await User.findOne({ userId: req.userId });
+
+    if (user._id.toString() === userId.toString()) {
+      const payment = await Payment.create(req.body);
+      await Booking.findByIdAndUpdate(bookingId, {
+        status: "CONFIRMED",
+      });
+      res.status(201).send(payment);
+    } else {
+      return res.status(400).send({
+        message: `The current user has not made the booking with ID: ${bookingId}`,
+      });
+    }
+  } catch (ex) {
+    return res.status(404).send({
+      message: `Booking with ID: ${bookingId} does not exist. Payment cannot be made for a non-existent booking`,
+    });
+  }
 }
 
 async function getAllPayments(req, res) {
@@ -37,7 +60,7 @@ async function getPaymentById(req, res) {
       const booking = await Booking.findById(bookingId);
       const userId = booking.userId;
 
-      if (userId === user._id) {
+      if (userId.toString() === user._id.toString()) {
         res.send(payment);
       } else {
         res
