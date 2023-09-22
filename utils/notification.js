@@ -14,7 +14,7 @@ function sendMail(actionId, subject, content, recipientEmails) {
 
   try {
     client.post(
-      "http://127.0.0.1:7777/notify-service/api/v1/notifications",
+      `${process.env.NOTIFICATION_SERVICE_URL}/notify-service/api/v1/notifications`,
       {
         data: reqBody,
         headers: { "Content-Type": "application/json" },
