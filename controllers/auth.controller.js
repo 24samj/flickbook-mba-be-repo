@@ -16,7 +16,7 @@ function signup(req, res) {
         userStatus:
             userType === USERTYPES.CUSTOMER
                 ? USER_STATUS.APPROVED
-                : USER_STATUS.APPROVED,
+                : USER_STATUS.PENDING,
     };
 
     User.create(userObj)
