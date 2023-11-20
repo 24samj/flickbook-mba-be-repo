@@ -17,6 +17,7 @@ async function updateUserStatus(req, res) {
     try {
         const { body } = req;
         const { id } = req.params;
+        console.log("Received user ID:", id);
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).send({ message: "Invalid user ID" });
