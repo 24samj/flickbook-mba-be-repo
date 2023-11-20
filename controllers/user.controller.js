@@ -18,8 +18,11 @@ async function updateUserStatus(req, res) {
         const { body } = req;
         const { id } = req.params;
 
+        // Convert the id to a valid ObjectId
+        const objectId = mongoose.Types.ObjectId(id);
+
         const updatedUser = await User.findByIdAndUpdate(
-            id,
+            objectId,
             { userStatus: body.userStatus },
             { new: true }
         );
@@ -38,6 +41,11 @@ async function updateUserStatus(req, res) {
         res.status(200).send(updatedUser);
     } catch (error) {
         console.error("Error in updateUserStatus:", error);
+
+        if (error.name === "CastError") {
+            return res.status(400).send({ message: "Invalid user ID" });
+        }
+
         res.status(500).send({ message: "Internal Server Error" });
     }
 }
@@ -46,6 +54,9 @@ async function updateUserDetails(req, res) {
     try {
         const { body } = req;
         const { id } = req.params;
+
+        // Convert the id to a valid ObjectId
+        const objectId = mongoose.Types.ObjectId(id);
 
         const user = await User.findOne({ userId: req.userId });
 
@@ -65,7 +76,7 @@ async function updateUserDetails(req, res) {
             updateObj.password = bcrypt.hashSync(body.password, 10);
         }
 
-        const updatedUser = await User.findByIdAndUpdate(id, updateObj, {
+        const updatedUser = await User.findByIdAndUpdate(objectId, updateObj, {
             new: true,
         });
 
@@ -76,6 +87,11 @@ async function updateUserDetails(req, res) {
         res.status(200).send(updatedUser);
     } catch (error) {
         console.error("Error in updateUserDetails:", error);
+
+        if (error.name === "CastError") {
+            return res.status(400).send({ message: "Invalid user ID" });
+        }
+
         res.status(500).send({ message: "Internal Server Error" });
     }
 }
