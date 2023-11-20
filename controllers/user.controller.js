@@ -22,7 +22,7 @@ async function updateUserStatus(req, res) {
         const objectId = mongoose.Types.ObjectId(id);
 
         const updatedUser = await User.findByIdAndUpdate(
-            objectId,
+            { _id: objectId }, // Use an object to specify the query condition
             { userStatus: body.userStatus },
             { new: true }
         );
@@ -76,9 +76,11 @@ async function updateUserDetails(req, res) {
             updateObj.password = bcrypt.hashSync(body.password, 10);
         }
 
-        const updatedUser = await User.findByIdAndUpdate(objectId, updateObj, {
-            new: true,
-        });
+        const updatedUser = await User.findByIdAndUpdate(
+            { _id: objectId }, // Use an object to specify the query condition
+            updateObj,
+            { new: true }
+        );
 
         if (!updatedUser) {
             return res.status(404).send({ message: "User not found" });
