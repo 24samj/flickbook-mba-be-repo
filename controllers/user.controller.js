@@ -18,7 +18,7 @@ async function updateUserStatus(req, res) {
         const { body } = req;
         const { id } = req.params;
 
-        // Convert the id to a valid ObjectId
+        // Convert the id to a valid ObjectId using mongoose.Types.ObjectId
         const objectId = mongoose.Types.ObjectId(id);
 
         const updatedUser = await User.findByIdAndUpdate(
@@ -55,7 +55,7 @@ async function updateUserDetails(req, res) {
         const { body } = req;
         const { id } = req.params;
 
-        // Convert the id to a valid ObjectId
+        // Convert the id to a valid ObjectId using mongoose.Types.ObjectId
         const objectId = mongoose.Types.ObjectId(id);
 
         const user = await User.findOne({ userId: req.userId });
