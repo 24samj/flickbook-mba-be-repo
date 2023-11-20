@@ -18,10 +18,14 @@ async function updateUserStatus(req, res) {
         const { body } = req;
         const { id } = req.params;
 
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).send({ message: "Invalid user ID" });
+        }
+
         const updatedUser = await User.findByIdAndUpdate(
-            mongoose.Types.ObjectId(id),
+            id,
             { userStatus: body.userStatus },
-            { new: true } // This option returns the modified document rather than the original one
+            { new: true }
         );
 
         if (!updatedUser) {
@@ -65,11 +69,9 @@ async function updateUserDetails(req, res) {
             updateObj.password = bcrypt.hashSync(body.password, 10);
         }
 
-        const updatedUser = await User.findByIdAndUpdate(
-            mongoose.Types.ObjectId(id),
-            updateObj,
-            { new: true } // This option returns the modified document rather than the original one
-        );
+        const updatedUser = await User.findByIdAndUpdate(id, updateObj, {
+            new: true,
+        });
 
         if (!updatedUser) {
             return res.status(404).send({ message: "User not found" });
