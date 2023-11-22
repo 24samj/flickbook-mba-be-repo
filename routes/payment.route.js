@@ -1,5 +1,7 @@
 const paymentController = require("../controllers/payment.controller");
-const { authJwt, verifyPaymentReqBody } = require("../middlewares");
+const authJwt = require("../middlewares/authJwt");
+const verifyPaymentReqBody = require("../middlewares/verifyPaymentReqBody");
+// const { authJwt, verifyPaymentReqBody } = require("../middlewares");
 
 /**
  * Routes for the booking resource
