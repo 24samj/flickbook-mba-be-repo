@@ -2,7 +2,7 @@ const Booking = require("../models/booking.model");
 const Payment = require("../models/payment.model");
 const constants = require("../utils/constants");
 const User = require("../models/user.model");
-const sendEmail = require("../utils/NotificationClient").sendEmail;
+const sendMail = require("../utils/notification").sendMail;
 
 /**
  * Get the list of all the payments.
@@ -81,7 +81,7 @@ exports.createPayment = async (req, res) => {
         await booking.save();
 
         const user = await User.findOne({ userId: req.userId });
-        sendEmail(
+        sendMail(
             payment._id,
             "Payment successfull for the booking id : " + req.body.bookingId,
             JSON.stringify(booking),
