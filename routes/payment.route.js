@@ -1,26 +1,14 @@
-const paymentController = require("../controllers/payment.controller");
-const authJwt = require("../middlewares/authJwt");
-const verifyPaymentReqBody = require("../middlewares/verifyPaymentReqBody");
-// const { authJwt, verifyPaymentReqBody } = require("../middlewares");
-
-/**
- * Routes for the booking resource
- */
+const {
+    createPayment,
+    getAllPayments,
+    getPaymentById,
+} = require("../controllers/payment.controller");
+const { verifyToken, isAdmin } = require("../middlewares/authJwt");
 
 module.exports = function (app) {
-    app.get(
-        "/mba/api/v1/payments",
-        [authJwt.verifyToken],
-        paymentController.getAllPayments
-    );
-    app.get(
-        "/mba/api/v1/payments/:id",
-        [authJwt.verifyToken],
-        paymentController.getPaymentOnId
-    );
-    app.post(
-        "/mba/api/v1/payments",
-        [authJwt.verifyToken, verifyPaymentReqBody.validatePaymentRequestBody],
-        paymentController.createPayment
-    );
+    app.post("/mba/api/v1/payments", [verifyToken], createPayment);
+
+    app.get("/mba/api/v1/payments", [verifyToken], getAllPayments);
+
+    app.get("/mba/api/v1/payments/:id", [verifyToken], getPaymentById);
 };

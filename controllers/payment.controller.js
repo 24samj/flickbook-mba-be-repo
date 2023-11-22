@@ -1,102 +1,91 @@
+const { USERTYPES } = require("../constant");
 const Booking = require("../models/booking.model");
 const Payment = require("../models/payment.model");
-const constants = require("../utils/constants");
 const User = require("../models/user.model");
-const sendMail = require("../utils/notification").sendMail;
 
-/**
- * Get the list of all the payments.
- * ADMIN user should get the list of all the payments
- * Customer user should get the list of all his/her payments
- */
-exports.getAllPayments = async (req, res) => {
-    const queryObj = {};
-    const userIdReq = req.userId;
-    const user = await User.findOne({ userId: userIdReq });
-    if (user.userType == constants.userTypes.admin) {
-    } else {
-        const bookings = await Booking.find({
-            _id: req.userId,
-        });
+async function createPayment(req, res) {
+    // check if booking's userId is same as the user making this payment
 
-        const bookingIds = bookings.map((b) => b._id);
-        console.log(bookingIds);
-        queryObj._id = { $in: bookingIds };
-    }
-
-    const payments = await Payment.find(queryObj);
-
-    res.status(200).send(payments);
-};
-
-/**
- * Get the payment details based on the payment id
- */
-
-exports.getPaymentOnId = async (req, res) => {
+    const bookingId = req.body.bookingId;
     try {
-        const payments = await Payment.findOne({ _id: req.params.id });
-        res.status(200).send(payments);
-    } catch (err) {
-        console.log(err.message);
-        res.status(500).send({
-            message: "Internal error while searching for the payments",
-        });
-    }
-};
-
-/**
- * Create a payment
- */
-exports.createPayment = async (req, res) => {
-    const booking = await Booking.findOne({
-        _id: req.body.bookingId,
-    });
-
-    var bookingTime = booking.createdAt;
-    var currentTime = Date.now();
-
-    var minutes = Math.floor((currentTime - bookingTime) / 1000 / 60);
-
-    if (minutes > 5) {
-        booking.status = constants.bookingStatus.expired;
-        await booking.save();
-        return res.status(200).send({
-            message:
-                "Can't do the payment as the booking is delayed and expired",
-        });
-    }
-
-    var paymentObject = {
-        bookingId: req.body.bookingId,
-        amount: req.body.amount,
-        status: constants.paymentStatus.success,
-    };
-    try {
-        const payment = await Payment.create(paymentObject);
-        /**
-         * Update the booking status
-         */
-        booking.status = constants.bookingStatus.completed;
-        await booking.save();
+        const booking = await Booking.findById(bookingId);
+        const userId = booking.userId;
 
         const user = await User.findOne({ userId: req.userId });
-        sendMail(
-            payment._id,
-            "Payment successfull for the booking id : " + req.body.bookingId,
-            JSON.stringify(booking),
-            user.email,
-            "mba-no-reply@mba.com"
-        );
-        /**
-         * Send the confirmation email
-         */
 
-        return res.status(201).send(payment);
-    } catch (err) {
-        console.log(err);
-        res.status(500).send({
-            message: "Internal error while creating the booking",
+        if (user._id.toString() === userId.toString()) {
+            const payment = await Payment.create(req.body);
+            await Booking.findByIdAndUpdate(bookingId, {
+                status: "CONFIRMED",
+            });
+            res.status(201).send(payment);
+        } else {
+            return res.status(400).send({
+                message: `The current user has not made the booking with ID: ${bookingId}`,
+            });
+        }
+    } catch (ex) {
+        return res.status(404).send({
+            message: `Booking with ID: ${bookingId} does not exist. Payment cannot be made for a non-existent booking`,
         });
     }
+}
+
+async function getAllPayments(req, res) {
+    if (req.userType === USERTYPES.CUSTOMER) {
+        const user = await User.findOne({ userId: req.userId });
+        const userBookingsIds = await Booking.find({ userId: user._id }).select(
+            "_id"
+        );
+        const paymentsMadeByUser = await Payment.find({
+            bookingId: { $in: userBookingsIds },
+        });
+        res.send(paymentsMadeByUser);
+    } else if (req.userType === USERTYPES.ADMIN) {
+        const payments = await Payment.find();
+        res.status(200).send(payments);
+    } else {
+        res.status(403).send({
+            message: "You are forbidden from calling this API",
+        });
+    }
+}
+
+async function getPaymentById(req, res) {
+    if (req.userType === USERTYPES.CUSTOMER) {
+        const user = await User.findOne({ userId: req.userId });
+        try {
+            const payment = await Payment.findById(req.params.id);
+            const bookingId = payment.bookingId;
+            const booking = await Booking.findById(bookingId);
+            const userId = booking.userId;
+
+            if (userId.toString() === user._id.toString()) {
+                res.send(payment);
+            } else {
+                res.status(403).send({
+                    message: "The payment is not made by the current user.",
+                });
+            }
+        } catch (ex) {
+            res.status(404).send("Payment ID does not exist");
+        }
+    } else if (req.userType === USERTYPES.ADMIN) {
+        try {
+            const payment = await Payment.findById(req.params.id);
+            res.status(200).send(payment);
+        } catch (ex) {
+            res.status(404).send("Payment ID does not exist");
+        }
+    } else {
+        res.status(403).send({
+            message: "You are forbidden from calling this API",
+        });
+    }
+}
+
+module.exports = {
+    createPayment,
+    getAllPayments,
+    getPaymentById,
 };
