@@ -133,12 +133,14 @@ async function updateBooking(req, res) {
 }
 
 async function createBooking(req, res) {
-    const user = await User.find({ userId: req.userId });
+    const user = await User.findOne({ userId: req.userId });
+    console.log(user);
     const booking = await Booking.create({
         ...req.body,
         userId: user._id,
         totalCost: req.body.noOfSeats * 150,
     });
+    console.log(booking);
     res.status(201).send(booking);
 }
 

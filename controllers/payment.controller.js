@@ -14,7 +14,10 @@ async function createPayment(req, res) {
         const user = await User.findOne({ userId: req.userId });
 
         if (user._id.toString() === userId.toString()) {
-            const payment = await Payment.create(req.body);
+            const payment = await Payment.create({
+                ...req.body,
+                status: "CONFIRMED",
+            });
             await Booking.findByIdAndUpdate(bookingId, {
                 status: "CONFIRMED",
             });
