@@ -41,6 +41,10 @@ const bookingSchema = new mongoose.Schema({
         type: Date,
         default: () => Date.now(),
     },
+    noOfSeats: {
+        type: Number,
+        default: 0,
+    },
 });
 
 const Booking = mongoose.model("Booking", bookingSchema);
