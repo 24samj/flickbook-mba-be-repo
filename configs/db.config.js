@@ -5,5 +5,3 @@ module.exports = {
         `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.mob0anj.mongodb.net/mba_db
         `,
 };
-
-// mongodb+srv://samj24:ElrRGBraF1TteIjI@cluster0.mob0anj.mongodb.net/mba_db
