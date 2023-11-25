@@ -139,7 +139,7 @@ async function createBooking(req, res) {
         ...req.body,
         userId: user._id,
         totalCost: req.body.noOfSeats * 150,
-        noOfSeats: noOfSeats,
+        noOfSeats: req.body.noOfSeats,
     });
     console.log(booking);
     res.status(201).send(booking);
