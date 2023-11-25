@@ -26,8 +26,6 @@ async function updateUserStatus(req, res) {
 async function updateUserDetails(req, res) {
     const { body } = req;
     const { id } = req.params;
-    console.log("request is", req);
-    console.log("params is", req.params);
 
     const user = await User.findOne({ userId: req.userId });
 
