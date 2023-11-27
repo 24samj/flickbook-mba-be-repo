@@ -24,6 +24,7 @@ async function updateUserStatus(req, res) {
 }
 
 async function updateUserDetails(req, res) {
+    console.log(req.body);
     const { body } = req;
     const { id } = req.params;
 
