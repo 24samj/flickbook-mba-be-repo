@@ -24,27 +24,37 @@ async function updateUserStatus(req, res) {
 }
 
 async function updateUserDetails(req, res) {
-    console.log("params is ", req.params);
-    const userIdReq = req.params.userId;
     try {
-        const user = await User.findOneAndUpdate(
-            {
-                userId: userIdReq,
-            },
-            {
-                name: req.body.name,
-                userStatus: req.body.userStatus,
-                userType: req.body.userType,
-                email: req.body.email,
-            }
-        ).exec();
-        res.status(200).send({
-            message: `User record has been updated successfully`,
-        });
-    } catch (err) {
-        console.log("Error while updating the record", err.message);
+        console.log(req.body);
+        const { body } = req;
+        const { id } = req.params;
+
+        const user = await User.findOne({ userId: req.userId });
+
+        if (user._id.toString() !== id) {
+            res.status(403).send({
+                message: "Cannot update the details of a user other than self",
+            });
+            return;
+        }
+
+        const updateObj = {};
+
+        updateObj.userStatus = body.userStatus;
+        updateObj.userType = body.userType;
+        updateObj.email = body.email;
+        updateObj.name = body.name;
+
+        if (body.password) {
+            updateObj.password = bcrypt.hashSync(body.password, 10);
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(id, updateObj);
+        res.status(200).send(updatedUser);
+    } catch (error) {
+        console.error(error);
         res.status(500).send({
-            message: "Some internal error occured",
+            message: "Internal server error",
         });
     }
 }
