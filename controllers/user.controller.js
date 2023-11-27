@@ -9,7 +9,7 @@ async function getAllUsers(req, res) {
 
 async function updateUserStatus(req, res) {
     const { body } = req;
-    const { id } = req.params;
+    const id = req.body.userId;
 
     const updatedUser = await User.findByIdAndUpdate(id, {
         userStatus: body.userStatus,
@@ -27,10 +27,10 @@ async function updateUserDetails(req, res) {
     try {
         console.log("req is ", req);
         const { body } = req;
-        const { id } = req.params;
+        const id = req.body.userId;
         console.log("id is ", id);
 
-        const user = await User.findOne({ userId: req.userId });
+        const user = await User.findOne({ userId: id });
         console.log("user we will update is ", user);
 
         // if (user._id.toString() !== id) {
