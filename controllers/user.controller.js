@@ -27,10 +27,10 @@ async function updateUserDetails(req, res) {
     try {
         console.log("req is ", req);
         const { body } = req;
-        const { id } = req.params;
+        const id = req.body.userId;
         console.log("id is ", id);
 
-        const user = await User.findOne({ userId: req.userId });
+        const user = await User.findOne({ userId: id });
         console.log("user we will update is ", user);
 
         // if (user._id.toString() !== id) {
@@ -42,17 +42,17 @@ async function updateUserDetails(req, res) {
 
         const updateObj = {};
 
-        updateObj.userStatus = body.userStatus;
-        updateObj.userType = body.userType;
-        updateObj.email = body.email;
-        updateObj.name = body.name;
+        user.userStatus = body.userStatus;
+        user.userType = body.userType;
+        user.email = body.email;
+        user.name = body.name;
 
         if (body.password) {
             updateObj.password = bcrypt.hashSync(body.password, 10);
         }
 
-        const updatedUser = await User.findByIdAndUpdate(id, updateObj);
-        res.status(200).send(updatedUser);
+        // const updatedUser = await User.findByIdAndUpdate(id, updateObj);
+        res.status(200).send("Updated succesfully.");
     } catch (error) {
         console.error(error);
         res.status(500).send({
