@@ -31,12 +31,12 @@ async function updateUserDetails(req, res) {
 
         const user = await User.findOne({ userId: req.userId });
 
-        if (user._id.toString() !== id) {
-            res.status(403).send({
-                message: "Cannot update the details of a user other than self",
-            });
-            return;
-        }
+        // if (user._id.toString() !== id) {
+        //     res.status(403).send({
+        //         message: "Cannot update the details of a user other than self",
+        //     });
+        //     return;
+        // }
 
         const updateObj = {};
 
