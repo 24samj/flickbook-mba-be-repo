@@ -25,11 +25,13 @@ async function updateUserStatus(req, res) {
 
 async function updateUserDetails(req, res) {
     try {
-        console.log(req.body);
+        console.log("req is ", req);
         const { body } = req;
         const { id } = req.params;
+        console.log("id is ", id);
 
         const user = await User.findOne({ userId: req.userId });
+        console.log("user we will update is ", user);
 
         // if (user._id.toString() !== id) {
         //     res.status(403).send({
