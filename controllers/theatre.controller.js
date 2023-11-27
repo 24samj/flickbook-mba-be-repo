@@ -22,6 +22,7 @@ async function getTheatreById(req, res) {
 
 async function createTheatre(req, res) {
     const theatre = req.body;
+    console.log(req);
     try {
         const newTheatre = await Theatre.create(theatre);
         res.status(201).send(newTheatre);

@@ -25,27 +25,10 @@ async function updateUserStatus(req, res) {
 
 async function updateUserDetails(req, res) {
     try {
-        console.log("req is ", req);
         const { body } = req;
         const id = req.body.userId;
-        console.log("id is ", id);
 
         const user = await User.findOne({ userId: id });
-        console.log("user we will update is ", user);
-
-        // if (user._id.toString() !== id) {
-        //     res.status(403).send({
-        //         message: "Cannot update the details of a user other than self",
-        //     });
-        //     return;
-        // }
-
-        // const updateObj = {};
-
-        // updateObj.userStatus = body.userStatus;
-        // updateObj.userType = body.userType;
-        // updateObj.email = body.email;
-        // updateObj.name = body.name;
 
         if (body.password) {
             updateObj.password = bcrypt.hashSync(body.password, 10);
