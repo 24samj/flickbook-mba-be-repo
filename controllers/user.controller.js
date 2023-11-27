@@ -40,19 +40,31 @@ async function updateUserDetails(req, res) {
         //     return;
         // }
 
-        const updateObj = {};
+        // const updateObj = {};
 
-        user.userStatus = body.userStatus;
-        user.userType = body.userType;
-        user.email = body.email;
-        user.name = body.name;
+        // updateObj.userStatus = body.userStatus;
+        // updateObj.userType = body.userType;
+        // updateObj.email = body.email;
+        // updateObj.name = body.name;
 
         if (body.password) {
             updateObj.password = bcrypt.hashSync(body.password, 10);
         }
 
-        // const updatedUser = await User.findByIdAndUpdate(id, updateObj);
-        res.status(200).send("Updated succesfully.");
+        const updatedUser = await User.findOneAndUpdate(
+            {
+                userId: id,
+            },
+            {
+                name: body.name,
+                userStatus: body.userStatus,
+                userType: body.userType,
+                email: body.email,
+            }
+        ).exec();
+        res.status(200).send({
+            message: `User record has been updated successfully`,
+        });
     } catch (error) {
         console.error(error);
         res.status(500).send({
