@@ -24,6 +24,7 @@ async function updateUserStatus(req, res) {
 }
 
 async function updateUserDetails(req, res) {
+    console.log("params is ", req.params);
     const userIdReq = req.params.userId;
     try {
         const user = await User.findOneAndUpdate(
