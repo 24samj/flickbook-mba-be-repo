@@ -79,6 +79,7 @@ async function signin(req, res) {
         email: user.email,
         userId: user.userId,
         userTypes: user.userType,
+        _id: user._id,
         accessToken,
     });
 }
