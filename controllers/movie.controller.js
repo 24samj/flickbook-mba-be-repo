@@ -29,21 +29,29 @@ async function createMovie(req, res) {
 async function updateMovie(req, res) {
     const id = req.params.id;
     console.log(req.body);
-    const updatedMovie = await Movie.findOneAndUpdate(
-        {
-            _id: id,
-        },
-        {
-            name: body.name,
-            description: body.description,
-            director: body.director,
-            posterUrl: body.posterUrl,
-            trailerUrl: body.trailerUrl,
-            releaseStatus: body.releaseStatus,
-            releaseDate: body.releaseDate,
-        }
-    ).exec();
-    // const updatedMovie = await Movie.findByIdAndUpdate(id, req.body);
+    // const updatedMovie = await Movie.findOneAndUpdate(
+    //     {
+    //         _id: id,
+    //     },
+    //     {
+    //         name: body.name,
+    //         description: body.description,
+    //         director: body.director,
+    //         posterUrl: body.posterUrl,
+    //         trailerUrl: body.trailerUrl,
+    //         releaseStatus: body.releaseStatus,
+    //         releaseDate: body.releaseDate,
+    //     }
+    // ).exec();
+    const updatedMovie = await Movie.findByIdAndUpdate(id, {
+        name: body.name,
+        description: body.description,
+        director: body.director,
+        posterUrl: body.posterUrl,
+        trailerUrl: body.trailerUrl,
+        releaseStatus: body.releaseStatus,
+        releaseDate: body.releaseDate,
+    });
 
     res.send(updatedMovie);
 }
