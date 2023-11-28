@@ -83,13 +83,13 @@ async function addMoviesToATheatre(req, res) {
             theatreId,
             theatre
         );
-        const user = await User.findOne({ _id: theatre.ownerId });
-        sendMail(
-            theatreId,
-            "New movies are added",
-            "New movies have been successfully added to your theatre. Check them in the application now.",
-            [user.email]
-        );
+        // const user = await User.findOne({ _id: theatre.ownerId });
+        // sendMail(
+        //     theatreId,
+        //     "New movies are added",
+        //     "New movies have been successfully added to your theatre. Check them in the application now.",
+        //     [user.email]
+        // );
         res.status(200).send(updatedTheatre);
     } catch (ex) {
         res.status(404).send({
@@ -113,20 +113,20 @@ async function removeMoviesFromATheatre(req, res) {
         const theatre = await Theatre.findById(theatreId);
         // const existingMovies = theatre.movies;
         const updatedMovies = theatre.movies.filter(
-            (movie) => movie !== moviesToBeRemoved
+            (movie) => movie.toString() !== moviesToBeRemoved.toString()
         );
         theatre.movies = updatedMovies;
         const updatedTheatre = await Theatre.findByIdAndUpdate(
             theatreId,
             theatre
         );
-        const user = await User.findOne({ _id: theatre.ownerId });
-        sendMail(
-            theatreId,
-            "New movies are added",
-            "New movies have been successfully added to your theatre. Check them in the application now.",
-            [user.email]
-        );
+        // const user = await User.findOne({ _id: theatre.ownerId });
+        // sendMail(
+        //     theatreId,
+        //     "New movies are added",
+        //     "New movies have been successfully added to your theatre. Check them in the application now.",
+        //     [user.email]
+        // );
         res.status(200).send(updatedTheatre);
     } catch (ex) {
         res.status(404).send({

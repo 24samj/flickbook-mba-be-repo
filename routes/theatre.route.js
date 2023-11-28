@@ -47,9 +47,11 @@ module.exports = function (app) {
             const { add, remove } = req.body;
 
             if (add) {
+                console.log("calling add func");
                 // Handle adding movies to a theatre
                 addMoviesToATheatre(req, res);
             } else if (remove) {
+                console.log("calling remove func");
                 // Handle removing movies from a theatre
                 removeMoviesFromATheatre(req, res);
             } else {
