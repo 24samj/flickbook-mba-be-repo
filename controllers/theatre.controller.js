@@ -101,7 +101,7 @@ async function addMoviesToATheatre(req, res) {
 async function removeMoviesFromATheatre(req, res) {
     const moviesToBeRemoved = req.body.movies;
 
-    if (!Array.isArray(moviesToBeAdded)) {
+    if (!Array.isArray(moviesToBeRemoved)) {
         return res.status(400).send({
             message: "Request body should be an array of movie ids",
         });
