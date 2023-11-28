@@ -43,15 +43,7 @@ async function updateMovie(req, res) {
     //         releaseDate: body.releaseDate,
     //     }
     // ).exec();
-    const updatedMovie = await Movie.findByIdAndUpdate(id, {
-        name: body.name,
-        description: body.description,
-        director: body.director,
-        posterUrl: body.posterUrl,
-        trailerUrl: body.trailerUrl,
-        releaseStatus: body.releaseStatus,
-        releaseDate: body.releaseDate,
-    });
+    const updatedMovie = await Movie.findByIdAndUpdate(id, req.body);
 
     res.send(updatedMovie);
 }
