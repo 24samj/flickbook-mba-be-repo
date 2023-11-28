@@ -40,7 +40,7 @@ const movieSchema = new mongoose.Schema({
         default: "RELEASED",
     },
     releaseDate: {
-        type: String, // assuming release date is a string
+        type: String,
         required: true,
     },
     createdAt: {

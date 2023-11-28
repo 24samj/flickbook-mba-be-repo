@@ -141,7 +141,7 @@ async function createBooking(req, res) {
         totalCost: req.body.noOfSeats * 150,
         noOfSeats: req.body.noOfSeats,
     });
-    console.log(booking);
+
     res.status(201).send(booking);
 }
 

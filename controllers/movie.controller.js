@@ -28,12 +28,6 @@ async function createMovie(req, res) {
 
 async function updateMovie(req, res) {
     const id = req.params.id;
-    console.log(req.body);
-
-    // // Extract day, month, and year from the date string
-    // const [day, month, year] = req.body.releaseDate.split("-");
-
-    // // Create a new Date object using the extracted components
 
     const updatedMovie = await Movie.findOneAndUpdate(
         {
@@ -49,7 +43,6 @@ async function updateMovie(req, res) {
             releaseDate: req.body.releaseDate,
         }
     ).exec();
-    // const updatedMovie = await Movie.findByIdAndUpdate(id, req.body);
 
     res.send(updatedMovie);
 }
