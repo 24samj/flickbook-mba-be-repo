@@ -64,7 +64,7 @@ async function deleteTheatre(req, res) {
 }
 
 async function addMoviesToATheatre(req, res) {
-    const moviesToBeAdded = req.body;
+    const moviesToBeAdded = req.body.movies;
 
     if (!Array.isArray(moviesToBeAdded)) {
         return res.status(400).send({
