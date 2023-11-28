@@ -34,6 +34,7 @@ function signup(req, res) {
 }
 
 async function signin(req, res) {
+    console.log("user signing in is", req.body);
     const { userId, password } = req.body;
     const user = await User.findOne({ userId: userId });
 
