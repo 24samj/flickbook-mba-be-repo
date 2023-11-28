@@ -29,21 +29,28 @@ async function createMovie(req, res) {
 async function updateMovie(req, res) {
     const id = req.params.id;
     console.log(req.body);
-    // const updatedMovie = await Movie.findOneAndUpdate(
-    //     {
-    //         _id: id,
-    //     },
-    //     {
-    //         name: body.name,
-    //         description: body.description,
-    //         director: body.director,
-    //         posterUrl: body.posterUrl,
-    //         trailerUrl: body.trailerUrl,
-    //         releaseStatus: body.releaseStatus,
-    //         releaseDate: body.releaseDate,
-    //     }
-    // ).exec();
-    const updatedMovie = await Movie.findByIdAndUpdate(id, req.body);
+
+    // Extract day, month, and year from the date string
+    const [day, month, year] = req.body.releaseDate.split("-");
+
+    // Create a new Date object using the extracted components
+    const formattedReleaseDate = new Date(year, month - 1, day);
+
+    const updatedMovie = await Movie.findOneAndUpdate(
+        {
+            _id: id,
+        },
+        {
+            name: req.body.name,
+            description: req.body.description,
+            director: req.body.director,
+            posterUrl: req.body.posterUrl,
+            trailerUrl: req.body.trailerUrl,
+            releaseStatus: req.body.releaseStatus,
+            releaseDate: formattedReleaseDate, // Use the formatted date
+        }
+    ).exec();
+    // const updatedMovie = await Movie.findByIdAndUpdate(id, req.body);
 
     res.send(updatedMovie);
 }
