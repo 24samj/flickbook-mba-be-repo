@@ -98,6 +98,43 @@ async function addMoviesToATheatre(req, res) {
     }
 }
 
+async function removeMoviesFromATheatre(req, res) {
+    const moviesToBeRemoved = req.body.movies;
+
+    if (!Array.isArray(moviesToBeAdded)) {
+        return res.status(400).send({
+            message: "Request body should be an array of movie ids",
+        });
+    }
+
+    const theatreId = req.params.id;
+
+    try {
+        const theatre = await Theatre.findById(theatreId);
+        // const existingMovies = theatre.movies;
+        const updatedMovies = theatre.movies.filter(
+            (movie) => movie !== moviesToBeRemoved
+        );
+        theatre.movies = updatedMovies;
+        const updatedTheatre = await Theatre.findByIdAndUpdate(
+            theatreId,
+            theatre
+        );
+        const user = await User.findOne({ _id: theatre.ownerId });
+        sendMail(
+            theatreId,
+            "New movies are added",
+            "New movies have been successfully added to your theatre. Check them in the application now.",
+            [user.email]
+        );
+        res.status(200).send(updatedTheatre);
+    } catch (ex) {
+        res.status(404).send({
+            message: `Theatre with ID: ${theatreId} does not exist`,
+        });
+    }
+}
+
 module.exports = {
     getAllTheatres,
     getTheatreById,
@@ -105,4 +142,5 @@ module.exports = {
     updateTheatre,
     deleteTheatre,
     addMoviesToATheatre,
+    removeMoviesFromATheatre,
 };

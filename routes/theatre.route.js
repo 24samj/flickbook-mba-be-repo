@@ -5,6 +5,7 @@ const {
     updateTheatre,
     deleteTheatre,
     addMoviesToATheatre,
+    removeMoviesFromATheatre,
 } = require("../controllers/theatre.controller");
 const {
     verifyToken,
@@ -40,5 +41,11 @@ module.exports = function (app) {
         "/mba/api/v1/theatres/:id/movies",
         [verifyToken, isAdminOrClient, isTheatreOwnerOrAdmin],
         addMoviesToATheatre
+    );
+
+    app.delete(
+        "/mba/api/v1/theatres/:id/movies",
+        [verifyToken, isAdminOrClient, isTheatreOwnerOrAdmin],
+        removeMoviesFromATheatre
     );
 };
