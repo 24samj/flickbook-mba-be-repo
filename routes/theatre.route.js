@@ -41,18 +41,11 @@ module.exports = function (app) {
         "/mba/api/v1/theatres/:id/movies",
         [verifyToken, isAdminOrClient, isTheatreOwnerOrAdmin],
         (req, res) => {
-            const { id } = req.params;
-
-            // Check if the request includes a "add" or "remove" property in the body
             const { add, remove } = req.body;
 
             if (add) {
-                console.log("calling add func");
-                // Handle adding movies to a theatre
                 addMoviesToATheatre(req, res);
             } else if (remove) {
-                console.log("calling remove func");
-                // Handle removing movies from a theatre
                 removeMoviesFromATheatre(req, res);
             } else {
                 res.status(400).json({ error: "Invalid operation" });
