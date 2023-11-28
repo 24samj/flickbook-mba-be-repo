@@ -40,12 +40,21 @@ module.exports = function (app) {
     app.put(
         "/mba/api/v1/theatres/:id/movies",
         [verifyToken, isAdminOrClient, isTheatreOwnerOrAdmin],
-        addMoviesToATheatre
-    );
+        (req, res) => {
+            const { id } = req.params;
 
-    app.delete(
-        "/mba/api/v1/theatres/:id/movies",
-        [verifyToken, isAdminOrClient, isTheatreOwnerOrAdmin],
-        removeMoviesFromATheatre
+            // Check if the request includes a "add" or "remove" property in the body
+            const { add, remove } = req.body;
+
+            if (add) {
+                // Handle adding movies to a theatre
+                addMoviesToATheatre(req, res);
+            } else if (remove) {
+                // Handle removing movies from a theatre
+                removeMoviesFromATheatre(req, res);
+            } else {
+                res.status(400).json({ error: "Invalid operation" });
+            }
+        }
     );
 };
